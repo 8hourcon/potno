@@ -8,8 +8,8 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-color: #2D1B4F; /* Deep purple background */
-            color: #EDE7F6; /* Light lavender for text */
+            background-color: #2D1B4F;
+            color: #EDE7F6;
             height: 100vh;
             overflow: hidden;
             position: relative;
@@ -47,7 +47,7 @@
 
         .enter-btn {
             padding: 15px 35px;
-            background-color: #7B1FA2; /* Dark purple */
+            background-color: #7B1FA2;
             color: #F3E5F5;
             border: none;
             border-radius: 25px;
@@ -74,10 +74,10 @@
             transform: translateY(0);
         }
 
-        /* Sidebar */
+        /* Sidebar (Hidden on Mobile) */
         .sidebar {
             width: 220px;
-            background-color: #452774; /* Darker purple */
+            background-color: #452774;
             padding: 20px;
             border-radius: 10px;
             margin: 80px 0 20px 20px;
@@ -95,9 +95,9 @@
             transform: translateX(-250px);
         }
 
-        /* Tabs */
+        /* Tabs (Hidden on Mobile) */
         .tab {
-            background-color: #6A1B9A; /* Purple */
+            background-color: #6A1B9A;
             color: #F3E5F5;
             padding: 12px;
             border-radius: 8px;
@@ -127,9 +127,9 @@
             width: 100%;
         }
 
-        /* Poem Box */
+        /* Poem Box (Adjusted for Mobile) */
         .poem-box {
-            background-color: #4A2A74; /* Purple box */
+            background-color: #4A2A74;
             border: 1px solid #6A1B9A;
             padding: 30px;
             margin: 40px auto 0 auto;
@@ -166,24 +166,67 @@
             white-space: pre-wrap;
         }
 
-        /* Toggle Button */
-        .toggle-btn {
-            position: fixed;
-            left: 20px;
-            top: 20px;
-            padding: 10px 20px;
-            background-color: #7B1FA2;
-            color: #F3E5F5;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-        }
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
 
-        .toggle-btn:hover {
-            background-color: #8E24AA;
+            .toggle-btn {
+                display: none;
+            }
+
+            .poem-box {
+                width: 90%;
+                height: auto;
+                margin: 10px auto;
+                padding: 20px;
+            }
+
+            /* Ribbon Button for Poem List */
+            .poem-ribbon {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background-color: lightblue;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 20px;
+                z-index: 2000;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .poem-list {
+                display: none;
+                position: fixed;
+                bottom: 70px;
+                left: 20px;
+                background-color: rgba(0, 0, 0, 0.5);
+                border-radius: 10px;
+                padding: 15px;
+                width: 90%;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+            }
+
+            .poem-list.active {
+                display: block;
+            }
+
+            .poem-list .tab {
+                background-color: #6A1B9A;
+                color: white;
+                font-size: 16px;
+                padding: 10px;
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .poem-list .tab:hover {
+                background-color: #8E24AA;
+            }
         }
 
         /* Animations */
@@ -191,77 +234,6 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Mobile Support */
-        @media (max-width: 768px) {
-            .greeting-title {
-                font-size: 1.8rem;
-                margin-bottom: 15px;
-            }
-
-            .enter-btn {
-                padding: 12px 28px;
-                font-size: 1rem;
-            }
-
-            .sidebar {
-                width: 200px;
-                margin: 60px 0 20px 10px;
-                position: relative;
-                height: auto;
-                display: flex;
-                flex-direction: row;
-                gap: 8px;
-                overflow-x: auto;
-                padding: 12px;
-            }
-
-            .content {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-            }
-
-            .poem-box {
-                width: 95%;
-                margin: 20px auto;
-                height: auto;
-            }
-
-            .poem-title {
-                font-size: 1.4rem;
-            }
-
-            .poem-content {
-                font-size: 1rem;
-                line-height: 1.6;
-            }
-
-            .toggle-btn {
-                font-size: 12px;
-            }
-        }
-
-        /* Mobile view adjustments for very small screens */
-        @media (max-width: 480px) {
-            .greeting-title {
-                font-size: 1.6rem;
-            }
-
-            .enter-btn {
-                padding: 10px 25px;
-                font-size: 0.9rem;
-            }
-
-            .poem-title {
-                font-size: 1.2rem;
-            }
-
-            .poem-content {
-                font-size: 0.95rem;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -274,8 +246,6 @@
 
     <!-- Main Interface -->
     <div id="mainInterface">
-        <button class="toggle-btn" onclick="toggleSidebar()">Hide/Show Tabs</button>
-
         <div class="sidebar" id="sidebar">
             <div class="tab" onclick="showPoem(1)">Poem 1</div>
             <div class="tab" onclick="showPoem(2)">Poem 2</div>
@@ -293,6 +263,16 @@
         </div>
     </div>
 
+    <!-- Mobile Ribbon -->
+    <div class="poem-ribbon" onclick="togglePoemList()">P</div>
+    <div class="poem-list" id="poemList">
+        <div class="tab" onclick="showPoem(1)">Poem 1</div>
+        <div class="tab" onclick="showPoem(2)">Poem 2</div>
+        <div class="tab" onclick="showPoem(3)">Poem 3</div>
+        <div class="tab" onclick="showPoem(4)">Poem 4</div>
+        <div class="tab" onclick="showPoem(5)">Poem 5</div>
+    </div>
+
     <script>
         function showPoem(poemNumber) {
             const poems = document.querySelectorAll('.poem-box');
@@ -300,8 +280,8 @@
             document.getElementById('poem' + poemNumber).classList.add('active');
         }
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('hidden');
+        function togglePoemList() {
+            document.getElementById('poemList').classList.toggle('active');
         }
 
         function enterLibrary() {
