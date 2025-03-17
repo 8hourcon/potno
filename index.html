@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Library</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1A1A1D;
+            color: #E5E5E5;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Greeting Page */
+        .greeting-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1A1A1D;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        .greeting-page.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .greeting-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #E5E5E5;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .enter-btn {
+            padding: 15px 30px;
+            background-color: #3C4759;
+            color: #E5E5E5;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .enter-btn:hover {
+            background-color: #4A5B6A;
+            transform: scale(1.05);
+        }
+
+        /* Main Interface */
+        #mainInterface {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        #mainInterface.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background-color: #252A34;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 80px 0 20px 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: calc(100vh - 100px);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-250px);
+        }
+
+        /* Tabs */
+        .tab {
+            background-color: #3C4759;
+            color: #E5E5E5;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .tab:hover {
+            background-color: #4A5B6A;
+        }
+
+        /* Content */
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #1A1A1D;
+            color: #E5E5E5;
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition */
+        }
+
+        .sidebar.hidden + .content {
+            margin-left: 0;
+            width: 100%; /* Full width when sidebar hidden */
+        }
+
+        /* Poem Box */
+        .poem-box {
+            background-color: #252A34;
+            border: 1px solid #3C4759;
+            padding: 30px;
+            margin: 40px auto 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            width: 85%; /* Wider */
+            max-width: 1000px; /* Increased max-width */
+            height: 80vh; /* Taller */
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: margin-left 0.3s ease; /* Smooth center adjust */
+        }
+
+        .poem-box.active {
+            display: block;
+        }
+
+        /* Center poem box when sidebar hidden */
+        .sidebar.hidden ~ .content .poem-box.active {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .poem-title {
+            font-size: 1.5rem;
+            color: #B3C2D3;
+            margin-bottom: 15px;
+        }
+
+        .poem-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #D0D9E6;
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            padding: 10px 20px;
+            background-color: #3C4759;
+            color: #E5E5E5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toggle-btn:hover {
+            background-color: #4A5B6A;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Greeting Page -->
+    <div class="greeting-page" id="greetingPage">
+        <div class="greeting-title">Welcome to the Poem Library</div>
+        <button class="enter-btn" onclick="enterLibrary()">Enter Library</button>
+    </div>
+
+    <!-- Main Interface -->
+    <div id="mainInterface">
+        <button class="toggle-btn" onclick="toggleSidebar()">Hide/Show Tabs</button>
+
+        <div class="sidebar" id="sidebar">
+            <div class="tab" onclick="showPoem(1)">Poem 1</div>
+            <div class="tab" onclick="showPoem(2)">Poem 2</div>
+            <div class="tab" onclick="showPoem(3)">Poem 3</div>
+            <div class="tab" onclick="showPoem(4)">Poem 4</div>
+            <div class="tab" onclick="showPoem(5)">Poem 5</div>
+        </div>
+
+        <div class="content">
+            <div id="poem1" class="poem-box"><div class="poem-title">Poem 1</div><div class="poem-content">Poem 1 content here...</div></div>
+            <div id="poem2" class="poem-box"><div class="poem-title">Poem 2</div><div class="poem-content">Poem 2 content here...</div></div>
+            <div id="poem3" class="poem-box"><div class="poem-title">Poem 3</div><div class="poem-content">Poem 3 content here...</div></div>
+            <div id="poem4" class="poem-box"><div class="poem-title">Poem 4</div><div class="poem-content">Poem 4 content here...</div></div>
+            <div id="poem5" class="poem-box"><div class="poem-title">Poem 5</div><div class="poem-content">Poem 5 content here...</div></div>
+        </div>
+    </div>
+
+    <script>
+        function showPoem(poemNumber) {
+            const poems = document.querySelectorAll('.poem-box');
+            poems.forEach(poem => poem.classList.remove('active'));
+            document.getElementById('poem' + poemNumber).classList.add('active');
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        }
+
+        function enterLibrary() {
+            const greetingPage = document.getElementById('greetingPage');
+            const mainInterface = document.getElementById('mainInterface');
+            greetingPage.classList.add('hidden');
+            setTimeout(() => mainInterface.classList.add('visible'), 500);
+        }
+    </script>
+</body>
+</html>
