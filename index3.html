@@ -58,15 +58,6 @@
         .go-back {
             background: #ff6600;
         }
-        .music-player {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .music-player h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
         .poem-box {
             position: relative;
             padding: 20px;
@@ -74,27 +65,6 @@
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
             margin-top: 20px;
-            transition: filter 0.3s ease;
-        }
-        .poem-box.blur {
-            filter: blur(10px);
-            pointer-events: none;
-        }
-        .reveal-button {
-            background: green;
-            color: white;
-            padding: 15px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
-        .reveal-button:hover {
-            background: darkgreen;
         }
         @media (max-width: 600px) {
             .container {
@@ -115,30 +85,24 @@
     </style>
 </head>
 <body>
-    <div class="music-player">
-        <h3>Real Life</h3>
-        <audio id="audioPlayer" controls>
-            <source src="Real.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-
     <div class="container">
         <h1>Welcome, Lea</h1>
         <p id="quote">"This is your daily quote. Change it as needed."</p>
 
-        <!-- Poem box with blur effect initially -->
-        <div id="poemBox" class="poem-box blur">
-            <p id="poem">"This is an example of a poem. Replace this text with the poem of your choice. The volume slider above will control the music volume while the poem continues below. Add more lines here to see how it works!"</p>
+        <!-- Hidden audio element for infinite loop -->
+        <audio autoplay loop>
+            <source src="Real.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+
+        <div class="poem-box">
+            <p id="poem">"This is an example of a poem. Replace this text with the poem of your choice. The music is playing in the background while the poem continues below. Add more lines here to see how it works!"</p>
         </div>
 
         <div class="button-container">
             <button class="go-back" onclick="goBack()">Go Back</button>
         </div>
     </div>
-
-    <!-- Reveal button -->
-    <button class="reveal-button" id="revealButton" onclick="revealContent()">Reveal</button>
 
     <script>
         function goBack() {
@@ -155,20 +119,13 @@
             return null;
         }
 
-        function revealContent() {
-            // Play the music
-            document.getElementById("audioPlayer").play();
-            // Remove the blur effect from the poem box
-            document.getElementById("poemBox").classList.remove("blur");
-            // Fade out the Reveal button
-            document.getElementById("revealButton").style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById("revealButton").style.display = "none";
-            }, 500); // Hide the button after fade out
-        }
-
         if (getCookie("loggedIn") === "true") {
-            // No need for blur or redirection if logged in
+            // No need for redirect if logged in
         } else {
             setTimeout(() => {
-                window.location.href = "in
+                window.location.href = "index.html";
+            }, 1500); // 1.5-second delay before redirecting
+        }
+    </script>
+</body>
+</html>
