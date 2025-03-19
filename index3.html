@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relax Lea Everything Is Okay</title>
+    <title>Poem Page</title>
     <style>
         body {
             background: linear-gradient(to right, #2c003e, #4b0082);
@@ -78,7 +78,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Hope you enjoy Lea!</h1>
+        <h1>Poem Page</h1>
         <div class="poem" id="poem">
             "This is a placeholder poem for now. Feel free to replace it with an actual poem when ready. The poem might go on for several lines and should be able to display properly in this large box. It will automatically adjust to the screen size, making it easy to read on any device. Each new line in the poem will appear here, and the container will allow scrolling if the poem is too long."
         </div>
@@ -88,7 +88,7 @@
     </div>
 
     <!-- Audio for looping music -->
-    <audio id="background-music" loop autoplay muted>
+    <audio id="background-music" loop>
         <source src="Real.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
@@ -117,12 +117,17 @@
             }, 1500); // 1.5-second delay before redirecting
         }
 
-        // Try to enable audio after user interaction
+        // Try to enable audio after user interaction (click or tap anywhere)
+        let audio = document.getElementById("background-music");
+
         document.body.addEventListener("click", function() {
-            var audio = document.getElementById("background-music");
-            audio.muted = false;
             audio.play();
         });
+
+        // For mobile devices, we also want to start the audio with the first tap on the screen
+        if (audio) {
+            audio.muted = false;  // Unmute the audio to ensure it plays
+        }
     </script>
 </body>
 </html>
