@@ -19,23 +19,25 @@
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
             width: 90%;
-            max-width: 400px;
+            max-width: 500px;
         }
         h1 {
-            margin-bottom: 10px;
-            font-size: 24px;
+            margin-bottom: 15px;
+            font-size: 26px;
         }
         p {
             font-size: 18px;
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .button-container {
-            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         button {
             background: #8a2be2;
@@ -52,22 +54,15 @@
             background: #7a1fbb;
         }
         .logout {
-            position: absolute;
-            top: 15px;
-            left: 15px;
             background: red;
-            padding: 8px 12px;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
         }
         @media (max-width: 600px) {
             .container {
                 width: 90%;
-                padding: 25px;
+                padding: 30px;
             }
             h1 {
-                font-size: 20px;
+                font-size: 22px;
             }
             p {
                 font-size: 16px;
@@ -80,12 +75,12 @@
     </style>
 </head>
 <body>
-    <button class="logout" onclick="logout()">Logout</button>
     <div class="container">
         <h1>Welcome, <span id="username"></span></h1>
         <p id="quote">"This is your daily quote. Change it as needed."</p>
         <div class="button-container">
             <button onclick="enterSite()">Enter</button>
+            <button class="logout" onclick="logout()">Logout</button>
         </div>
     </div>
 
@@ -114,7 +109,8 @@
         if (getCookie("loggedIn") !== "true") {
             window.location.href = "index.html";
         } else {
-            document.getElementById("username").innerText = getCookie("username") || "User";
+            let username = getCookie("username");
+            document.getElementById("username").innerText = username ? username : "User";
         }
     </script>
 </body>
