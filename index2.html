@@ -110,11 +110,13 @@
             window.location.href = "index3.html";
         }
 
-        // Security check: Blur screen and redirect immediately if not logged in
+        // Security check: Blur screen and redirect if not logged in
         if (getCookie("loggedIn") === "true") {
             document.body.classList.remove("blur");
         } else {
-            window.location.href = "index.html"; // Immediate redirect with no delay
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500); // 1.5-second delay before redirecting
         }
     </script>
 </body>
