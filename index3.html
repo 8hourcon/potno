@@ -25,7 +25,6 @@
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
             width: 90%;
             max-width: 800px;
-            overflow-y: auto;
         }
         h1 {
             margin-bottom: 15px;
@@ -37,8 +36,23 @@
             margin-bottom: 25px;
             white-space: pre-wrap; /* Preserve line breaks */
             max-height: 70vh; /* Allow scrolling if poem is long */
-            overflow-y: auto;
+            overflow-y: scroll; /* Make the small box scrollable */
+            padding-right: 20px; /* Prevent text from being cut off */
         }
+        /* Custom scroll bar for the .poem box */
+        .poem::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .poem::-webkit-scrollbar-thumb {
+            background-color: #8a2be2; /* Purple thumb to match the theme */
+            border-radius: 10px;
+        }
+
+        .poem::-webkit-scrollbar-track {
+            background-color: #4b0082; /* Dark purple track */
+        }
+
         .button-container {
             display: flex;
             flex-direction: column;
