@@ -88,7 +88,7 @@
     </div>
 
     <!-- Audio for looping music -->
-    <audio id="background-music" loop autoplay>
+    <audio id="background-music" loop autoplay muted>
         <source src="Real.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
@@ -116,6 +116,13 @@
                 window.location.href = "index.html";
             }, 1500); // 1.5-second delay before redirecting
         }
+
+        // Try to enable audio after user interaction
+        document.body.addEventListener("click", function() {
+            var audio = document.getElementById("background-music");
+            audio.muted = false;
+            audio.play();
+        });
     </script>
 </body>
 </html>
