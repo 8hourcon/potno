@@ -16,6 +16,11 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            transition: filter 0.5s ease-in-out;
+        }
+        .blur {
+            filter: blur(10px);
+            pointer-events: none;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
@@ -74,9 +79,9 @@
         }
     </style>
 </head>
-<body>
+<body class="blur">
     <div class="container">
-        <h1>Welcome, <span id="username"></span></h1>
+        <h1>Welcome, Lea</h1>
         <p id="quote">"This is your daily quote. Change it as needed."</p>
         <div class="button-container">
             <button onclick="enterSite()">Enter</button>
@@ -105,12 +110,13 @@
             window.location.href = "index3.html";
         }
 
-        // Security check: Redirect to login if not authenticated
-        if (getCookie("loggedIn") !== "true") {
-            window.location.href = "index.html";
+        // Security check: Blur screen and redirect if not logged in
+        if (getCookie("loggedIn") === "true") {
+            document.body.classList.remove("blur");
         } else {
-            let username = getCookie("username");
-            document.getElementById("username").innerText = username ? username : "User";
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500); // 1.5-second delay before redirecting
         }
     </script>
 </body>
