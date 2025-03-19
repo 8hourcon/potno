@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relax</title>
+    <title>Relax Lea</title>
     <style>
         body {
             background: linear-gradient(to right, #2c003e, #4b0082);
@@ -16,11 +16,6 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            transition: filter 0.5s ease-in-out;
-        }
-        .blur {
-            filter: blur(10px);
-            pointer-events: none;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
@@ -30,6 +25,7 @@
             width: 90%;
             max-width: 500px;
             margin-top: 100px;
+            position: relative;
         }
         h1 {
             margin-bottom: 15px;
@@ -71,6 +67,19 @@
             font-size: 18px;
             margin-bottom: 10px;
         }
+        .poem-box {
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+            transition: filter 0.3s ease;
+        }
+        .poem-box.blur {
+            filter: blur(10px);
+            pointer-events: none;
+        }
         .reveal-button {
             background: green;
             color: white;
@@ -78,7 +87,11 @@
             font-size: 18px;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
         }
         .reveal-button:hover {
             background: darkgreen;
@@ -101,7 +114,7 @@
         }
     </style>
 </head>
-<body class="blur">
+<body>
     <div class="music-player">
         <h3>Real Life</h3>
         <audio id="audioPlayer" controls>
@@ -113,12 +126,19 @@
     <div class="container">
         <h1>Welcome, Lea</h1>
         <p id="quote">"This is your daily quote. Change it as needed."</p>
-        <p id="poem">"This is an example of a poem. Replace this text with the poem of your choice. The volume slider above will control the music volume while the poem continues below. Add more lines here to see how it works!"</p>
+
+        <!-- Poem box with blur effect initially -->
+        <div id="poemBox" class="poem-box blur">
+            <p id="poem">"This is an example of a poem. Replace this text with the poem of your choice. The volume slider above will control the music volume while the poem continues below. Add more lines here to see how it works!"</p>
+        </div>
+
         <div class="button-container">
             <button class="go-back" onclick="goBack()">Go Back</button>
-            <button class="reveal-button" onclick="revealContent()">Reveal</button>
         </div>
     </div>
+
+    <!-- Reveal button -->
+    <button class="reveal-button" id="revealButton" onclick="revealContent()">Reveal</button>
 
     <script>
         function goBack() {
@@ -138,17 +158,17 @@
         function revealContent() {
             // Play the music
             document.getElementById("audioPlayer").play();
-            // Remove the blur effect
-            document.body.classList.remove("blur");
+            // Remove the blur effect from the poem box
+            document.getElementById("poemBox").classList.remove("blur");
+            // Fade out the Reveal button
+            document.getElementById("revealButton").style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById("revealButton").style.display = "none";
+            }, 500); // Hide the button after fade out
         }
 
         if (getCookie("loggedIn") === "true") {
-            document.body.classList.remove("blur");
+            // No need for blur or redirection if logged in
         } else {
             setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        }
-    </script>
-</body>
-</html>
+                window.location.href = "in
