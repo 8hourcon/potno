@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relax Lea</title>
+    <title>Poem Page</title>
     <style>
         body {
             background: linear-gradient(to right, #2c003e, #4b0082);
@@ -16,25 +16,32 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            transition: filter 0.5s ease-in-out;
+        }
+        .blur {
+            filter: blur(10px);
+            pointer-events: none;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
+            padding: 50px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
             width: 90%;
-            max-width: 500px;
-            margin-top: 100px;
-            position: relative;
+            max-width: 800px;
+            overflow-y: auto;
         }
         h1 {
             margin-bottom: 15px;
             font-size: 26px;
         }
-        p {
+        .poem {
             font-size: 18px;
             font-style: italic;
             margin-bottom: 25px;
+            white-space: pre-wrap; /* Preserve line breaks */
+            max-height: 70vh; /* Allow scrolling if poem is long */
+            overflow-y: auto;
         }
         .button-container {
             display: flex;
@@ -55,16 +62,8 @@
         button:hover {
             background: #7a1fbb;
         }
-        .go-back {
-            background: #ff6600;
-        }
-        .poem-box {
-            position: relative;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
-            margin-top: 20px;
+        .logout {
+            background: red;
         }
         @media (max-width: 600px) {
             .container {
@@ -74,7 +73,7 @@
             h1 {
                 font-size: 22px;
             }
-            p {
+            .poem {
                 font-size: 16px;
             }
             button {
@@ -84,31 +83,19 @@
         }
     </style>
 </head>
-<body>
+<body class="blur">
     <div class="container">
-        <h1>Welcome, Lea</h1>
-        <p id="quote">"This is your daily quote. Change it as needed."</p>
-
-        <!-- Hidden audio element for infinite loop -->
-        <audio autoplay loop>
-            <source src="Real.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
-
-        <div class="poem-box">
-            <p id="poem">"This is an example of a poem. Replace this text with the poem of your choice. The music is playing in the background while the poem continues below. Add more lines here to see how it works!"</p>
+        <h1>Poem Page</h1>
+        <div class="poem" id="poem">
+            "This is a placeholder poem for now. Feel free to replace it with an actual poem when ready. The poem might go on for several lines and should be able to display properly in this large box. It will automatically adjust to the screen size, making it easy to read on any device. Each new line in the poem will appear here, and the container will allow scrolling if the poem is too long."
         </div>
-
         <div class="button-container">
-            <button class="go-back" onclick="goBack()">Go Back</button>
+            <button onclick="goBack()">Go Back</button>
+            <button class="logout" onclick="logout()">Logout</button>
         </div>
     </div>
 
     <script>
-        function goBack() {
-            window.location.href = "index2.html";
-        }
-
         function getCookie(name) {
             let nameEQ = name + "=";
             let ca = document.cookie.split(';');
@@ -119,8 +106,19 @@
             return null;
         }
 
+        function logout() {
+            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "index.html";
+        }
+
+        function goBack() {
+            window.location.href = "index2.html";
+        }
+
+        // Security check: Blur screen and redirect if not logged in
         if (getCookie("loggedIn") === "true") {
-            // No need for redirect if logged in
+            document.body.classList.remove("blur");
         } else {
             setTimeout(() => {
                 window.location.href = "index.html";
