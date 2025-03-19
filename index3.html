@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player and Poem</title>
+    <title>Relax</title>
     <style>
         body {
             background: linear-gradient(to right, #2c003e, #4b0082);
@@ -71,6 +71,18 @@
             font-size: 18px;
             margin-bottom: 10px;
         }
+        .reveal-button {
+            background: green;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .reveal-button:hover {
+            background: darkgreen;
+        }
         @media (max-width: 600px) {
             .container {
                 width: 90%;
@@ -103,7 +115,8 @@
         <p id="quote">"This is your daily quote. Change it as needed."</p>
         <p id="poem">"This is an example of a poem. Replace this text with the poem of your choice. The volume slider above will control the music volume while the poem continues below. Add more lines here to see how it works!"</p>
         <div class="button-container">
-            <button onclick="goBack()">Go Back</button>
+            <button class="go-back" onclick="goBack()">Go Back</button>
+            <button class="reveal-button" onclick="revealContent()">Reveal</button>
         </div>
     </div>
 
@@ -120,6 +133,13 @@
                 if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
             }
             return null;
+        }
+
+        function revealContent() {
+            // Play the music
+            document.getElementById("audioPlayer").play();
+            // Remove the blur effect
+            document.body.classList.remove("blur");
         }
 
         if (getCookie("loggedIn") === "true") {
