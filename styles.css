@@ -1,50 +1,66 @@
-<!-- styles.css -->
+/* styles.css */
+
+/* General body style */
 body {
-    background: linear-gradient(to right, #2c003e, #4b0082);
-    color: white;
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #2c003e, #4b0082);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     transition: filter 0.5s ease-in-out;
 }
 
-.centered-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
+/* Blur effect for restricted access */
 .blur {
     filter: blur(10px);
     pointer-events: none;
 }
 
+/* Shared container styles */
 .container, .login-container {
     background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
+    padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     width: 90%;
     max-width: 500px;
-    text-align: center;
 }
 
-input, button {
-    width: 90%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+/* Headings and text */
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
 }
 
+p, .poem {
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* Button container */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Buttons */
 button {
     background: #8a2be2;
     color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
     cursor: pointer;
-    transition: 0.3s;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s;
 }
 
 button:hover {
@@ -52,42 +68,60 @@ button:hover {
 }
 
 .logout {
-    background: red;
+    background: #d60000;
 }
 
+.logout:hover {
+    background: #b00000;
+}
+
+/* Input fields for login */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    text-transform: none;
+}
+
+/* Poem box (for page 3) */
 .poem {
-    font-style: italic;
-    font-size: 18px;
     white-space: pre-wrap;
     max-height: 70vh;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-right: 20px;
 }
 
+/* Custom scrollbar */
 .poem::-webkit-scrollbar {
     width: 8px;
 }
-
 .poem::-webkit-scrollbar-thumb {
     background-color: #8a2be2;
     border-radius: 10px;
 }
-
 .poem::-webkit-scrollbar-track {
     background-color: #4b0082;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.error-text {
-    color: red;
-}
-
-.reason-container {
-    margin: 20px 0;
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .container, .login-container {
+        padding: 30px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    p, .poem {
+        font-size: 16px;
+    }
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
