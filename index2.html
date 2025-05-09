@@ -1,88 +1,23 @@
+<!-- index2.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <style>
-        body {
-            background: linear-gradient(to right, #2c003e, #4b0082);
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            transition: filter 0.5s ease-in-out;
-        }
-        .blur {
-            filter: blur(10px);
-            pointer-events: none;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
-            width: 90%;
-            max-width: 500px;
-        }
-        h1 {
-            margin-bottom: 15px;
-            font-size: 26px;
-        }
-        p {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 25px;
-        }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        button {
-            background: #8a2be2;
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #7a1fbb;
-        }
-        .logout {
-            background: red;
-        }
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-                padding: 30px;
-            }
-            h1 {
-                font-size: 22px;
-            }
-            p {
-                font-size: 16px;
-            }
-            button {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="blur">
+<body class="centered-body blur">
     <div class="container">
-        <h1>Why are you visting before I read it to you?</h1>
+        <h1>Why are you visiting before I read it to you?</h1>
         <p id="quote">Do Not Enter!</p>
+
+        <div class="reason-container">
+            <h3 id="reason-title">Reason 1 Why I Love You</h3>
+            <p id="reason-text">You always know how to make me smile.</p>
+            <button onclick="nextReason()">Next Reason</button>
+        </div>
+
         <div class="button-container">
             <button onclick="enterSite()">Enter</button>
             <button class="logout" onclick="logout()">Logout</button>
@@ -102,7 +37,6 @@
 
         function logout() {
             document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             window.location.href = "index.html";
         }
 
@@ -110,13 +44,28 @@
             window.location.href = "index3.html";
         }
 
-        // Security check: Blur screen and redirect if not logged in
         if (getCookie("loggedIn") === "true") {
             document.body.classList.remove("blur");
         } else {
             setTimeout(() => {
                 window.location.href = "index.html";
-            }, 1500); // 1.5-second delay before redirecting
+            }, 1500);
+        }
+
+        const reasons = [
+            "You always know how to make me smile.",
+            "Your laugh is contagious and beautiful.",
+            "You care deeply about the people you love.",
+            "You're incredibly thoughtful and kind.",
+            "You make life feel like an adventure."
+        ];
+
+        let currentReason = 0;
+
+        function nextReason() {
+            currentReason = (currentReason + 1) % reasons.length;
+            document.getElementById("reason-title").textContent = `Reason ${currentReason + 1} Why I Love You`;
+            document.getElementById("reason-text").textContent = reasons[currentReason];
         }
     </script>
 </body>
