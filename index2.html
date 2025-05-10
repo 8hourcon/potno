@@ -5,24 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .reason-button {
-            margin-bottom: 20px;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-    </style>
 </head>
 <body class="centered-body blur">
     <div class="container">
         <div class="reason-container">
             <h3 id="reason-title">Reason 1 Why I Love You</h3>
             <p id="reason-text">You always know how to make me smile.</p>
-            <div class="reason-button">
+            
+            <div class="button-container">
+                <button onclick="previousReason()">Previous Reason</button>
                 <button onclick="nextReason()">Next Reason</button>
             </div>
         </div>
@@ -61,210 +52,30 @@
             }, 1500);
         }
 
-const reasons = [
-    "You always know how to make me smile.",
-    "Your laugh is contagious and beautiful.",
-    "You care deeply about the people you love.",
-    "You're incredibly thoughtful and kind.",
-    "You make life feel like an adventure.",
-    "You bring out the best in me.",
-    "Your creativity inspires me every day.",
-    "You are my safe place, my comfort.",
-    "You know exactly what to say to make me feel better.",
-    "Your heart is as big as your dreams.",
-    "You make the ordinary extraordinary.",
-    "You're incredibly patient with me.",
-    "Your support means the world to me.",
-    "You’re my biggest cheerleader.",
-    "Your presence brings peace into my life.",
-    "You’re more than I could have ever dreamed of.",
-    "You make me a better person.",
-    "You challenge me to grow every day.",
-    "Your beauty radiates from within.",
-    "You’re so much fun to be around.",
-    "You understand me in a way no one else does.",
-    "Your hugs feel like home.",
-    "You make even the hard days bearable.",
-    "You always know how to make me laugh.",
-    "You listen to me without judgment.",
-    "You make me feel loved even on my worst days.",
-    "Your honesty and transparency inspire me.",
-    "You’re not afraid to be yourself.",
-    "You have an amazing sense of humor.",
-    "Your smile lights up any room.",
-    "You bring so much joy to my life.",
-    "Your kindness is something I admire.",
-    "You have a heart of gold.",
-    "You love unconditionally.",
-    "Your eyes are full of love and understanding.",
-    "You always know how to make me feel special.",
-    "Your laugh is like music to my ears.",
-    "You believe in me even when I don’t believe in myself.",
-    "You always make the best out of any situation.",
-    "You are truly one of a kind.",
-    "You have a unique way of making everything better.",
-    "You accept me for who I am.",
-    "Your courage inspires me every day.",
-    "You always put others before yourself.",
-    "You’re my safe haven.",
-    "Your strength is unmatched.",
-    "You light up my world in ways I never thought possible.",
-    "You always make me feel important.",
-    "Your love has made me a better person.",
-    "You make everything feel possible.",
-    "You have the best advice, even when I don’t ask for it.",
-    "You’re my greatest adventure.",
-    "You help me believe in true love.",
-    "You make every day brighter just by being you.",
-    "You make life so much more beautiful.",
-    "Your love is the best thing that has ever happened to me.",
-    "You inspire me to be better every single day.",
-    "You make my world a better place.",
-    "You always know what I need, even before I do.",
-    "You make everything feel magical.",
-    "You give me hope for the future.",
-    "You bring calm to my chaos.",
-    "You are a dream come true.",
-    "Your love feels like home.",
-    "You fill my heart with so much happiness.",
-    "You have a beautiful soul.",
-    "You light up my world with your kindness.",
-    "You make me feel like I can conquer anything.",
-    "You’re my rock in times of need.",
-    "Your support and belief in me keep me going.",
-    "You always make me feel appreciated.",
-    "You always know how to put a smile on my face.",
-    "You make my heart skip a beat every time I see you.",
-    "Your touch is all I need to feel calm and loved.",
-    "You make everything better, just by being around.",
-    "You’re the love of my life.",
-    "You’re always there for me when I need you.",
-    "You’re my constant in a world of chaos.",
-    "Your positivity lifts my spirits.",
-    "You make me feel so proud to be with you.",
-    "You have the biggest heart.",
-    "You’re a true blessing in my life.",
-    "You are my favorite person in the world.",
-    "You give me butterflies every time I see you.",
-    "You make me feel like the luckiest person alive.",
-    "Your love has transformed me.",
-    "You make everything feel right.",
-    "You make my world more colorful.",
-    "Your voice is so soothing to me.",
-    "You always know what to say to calm me down.",
-    "You brighten my day with just a smile.",
-    "You inspire me to chase my dreams.",
-    "You make every moment with you feel special.",
-    "You are my one and only.",
-    "You make me feel alive.",
-    "You are my greatest happiness.",
-    "Your love gives me strength.",
-    "You make every day feel like a gift.",
-    "You are everything I ever wanted.",
-    "You make me feel like I’m the most important person in the world.",
-    "Your happiness is my priority.",
-    "You make me feel so cherished.",
-    "Your laughter fills my heart with joy.",
-    "You always know how to make me feel understood.",
-    "You’re my biggest blessing.",
-    "You make everything in life so much more meaningful.",
-    "Your love is what keeps me going.",
-    "You’re my favorite person to talk to.",
-    "You make my dreams feel within reach.",
-    "You’re the reason I believe in fate.",
-    "You give me a reason to smile every day.",
-    "Your eyes sparkle with so much love.",
-    "You have the ability to make everything feel better.",
-    "Your touch heals all my worries.",
-    "You’re my best friend and my soulmate.",
-    "You’re the one I’ve been waiting for my whole life.",
-    "You make me feel loved in ways I never thought possible.",
-    "You are my safe place.",
-    "You’re my biggest supporter.",
-    "You are everything I’ve ever needed.",
-    "You make my world a little brighter every day.",
-    "Your love is the best thing that ever happened to me.",
-    "You are my forever and always.",
-    "You make me feel like the luckiest person in the world.",
-    "You’re my best friend and my soulmate.",
-    "You make everything seem better with just a smile.",
-    "You are my sunshine on rainy days.",
-    "You make every moment we spend together memorable.",
-    "You are everything I ever dreamed of.",
-    "You make me feel special every day.",
-    "You’re my reason for everything.",
-    "You bring so much light into my life.",
-    "You make me feel like I’m enough.",
-    "You make me feel at peace.",
-    "You bring out the best in me.",
-    "You’re the most beautiful person, inside and out.",
-    "You’re my heart and soul.",
-    "You make me feel whole.",
-    "You make me feel like I belong.",
-    "You give me everything I need in life.",
-    "Your smile makes my day brighter.",
-    "You’re the reason I feel so blessed.",
-    "Your love is everything I ever needed.",
-    "You make me feel like I’m the most important person to you.",
-    "You are my reason to smile every day.",
-    "You are the best thing that has ever happened to me.",
-    "You make my heart feel full.",
-    "You make every day feel magical.",
-    "You make me want to be a better person.",
-    "You are everything I could ever want in a partner.",
-    "Your love is the most precious thing in my life.",
-    "You are my biggest blessing.",
-    "You’re the light in my life.",
-    "Your love is what keeps me going.",
-    "You make me feel complete.",
-    "You are my greatest happiness.",
-    "You make every day better.",
-    "You are the best decision I’ve ever made.",
-    "You’re my reason to be happy.",
-    "You make me feel amazing.",
-    "You make me feel so valued.",
-    "You’re the person I want to spend my life with.",
-    "You’re the one I’ve been waiting for.",
-    "You’re the one I want to grow old with.",
-    "You’re the one I want to share my dreams with.",
-    "You make everything in my life better.",
-    "You are my dream come true.",
-    "You’re my home.",
-    "You make my world better just by being you.",
-    "You’re the one I want to spend forever with.",
-    "You make me feel truly loved.",
-    "You are my reason to keep going.",
-    "You bring joy to my life every day.",
-    "You’re my reason for hope.",
-    "You are the reason I believe in love.",
-    "You make every moment with you unforgettable.",
-    "You make me feel truly special.",
-    "You make life worth living.",
-    "You fill my heart with so much happiness.",
-    "You make my heart race every time I see you.",
-    "You’re the reason I wake up with a smile on my face.",
-    "You make me feel like the luckiest person alive.",
-    "You make every day feel like a blessing.",
-    "You’re the best thing in my life.",
-    "You’re my favorite person in the world.",
-    "You are my one true love.",
-    "You make my life feel complete.",
-    "You make everything better just by being you.",
-    "You are my everything.",
-    "You make every day feel magical.",
-    "You bring out the best in me.",
-    "You complete me in ways I never imagined.",
-    "You make me feel like I belong.",
-    "You make my heart skip a beat.",
-    "You make me feel special every day.",
-    "You make my world a better place.",
-    "You make me feel like I’m the luckiest person on earth."
-];
+        const reasons = [
+            "You always know how to make me smile.",
+            "Your laugh is contagious and beautiful.",
+            "You care deeply about the people you love.",
+            "You're incredibly thoughtful and kind.",
+            "You make life feel like an adventure.",
+            "You always make me feel appreciated, even for the smallest things.",
+            "Your sense of humor always brightens my day.",
+            "You’re incredibly supportive, even when times are tough.",
+            "You always know how to make me feel better when I'm down.",
+            "Your intelligence and curiosity inspire me to learn more every day.",
+            // Add more reasons as needed
+        ];
 
         let currentReason = 0;
 
         function nextReason() {
             currentReason = (currentReason + 1) % reasons.length;
+            document.getElementById("reason-title").textContent = `Reason ${currentReason + 1} Why I Love You`;
+            document.getElementById("reason-text").textContent = reasons[currentReason];
+        }
+
+        function previousReason() {
+            currentReason = (currentReason - 1 + reasons.length) % reasons.length;
             document.getElementById("reason-title").textContent = `Reason ${currentReason + 1} Why I Love You`;
             document.getElementById("reason-text").textContent = reasons[currentReason];
         }
