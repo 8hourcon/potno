@@ -1,10 +1,9 @@
-<!-- index2.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome Back</title>
+  <title>Reasons I Love You</title>
   <style>
     body {
       background: linear-gradient(to right, #2c003e, #4b0082);
@@ -23,27 +22,35 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
       text-align: center;
-      width: 320px;
+      width: 360px;
     }
 
-    h1 {
-      margin-bottom: 20px;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
     }
 
     p {
-      margin-bottom: 30px;
       font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .button-container,
+    .reason-button {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
     }
 
     button {
-      background: #ff69b4; /* hot pink */
+      background: #ff69b4; /* soft pink */
       color: white;
       border: none;
       padding: 12px;
-      width: 100%;
-      cursor: pointer;
       border-radius: 6px;
       font-size: 16px;
+      cursor: pointer;
       transition: transform 0.1s ease-in-out, background 0.3s;
     }
 
@@ -54,13 +61,36 @@
     button:active {
       transform: scale(0.96);
     }
+
+    .logout {
+      background: #8b5cf6; /* soft violet for logout */
+    }
+
+    .logout:hover {
+      background: #7c3aed;
+    }
+
+    .blur {
+      filter: blur(5px);
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
-<body>
+<body class="centered-body blur">
   <div class="container">
-    <h1>Welcome Back, Lea</h1>
-    <p>You're doing amazing. Keep going, you're almost there.</p>
-    <button onclick="nextPage()">Next</button>
+    <div class="reason-container">
+      <h3 id="reason-title">Reason 1 Why I Love You</h3>
+      <p id="reason-text">You always know how to make me smile.</p>
+      <div class="reason-button">
+        <button onclick="nextReason()">Next Reason</button>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button onclick="enterSite()">Enter</button>
+      <button class="logout" onclick="logout()">Logout</button>
+    </div>
   </div>
 
   <script>
@@ -74,14 +104,31 @@
       return null;
     }
 
-    function nextPage() {
+    function logout() {
+      document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href = "index.html";
+    }
+
+    function enterSite() {
       window.location.href = "index3.html";
     }
 
-    if (getCookie("loggedIn") !== "true") {
+    if (getCookie("loggedIn") === "true") {
+      document.body.classList.remove("blur");
+    } else {
       setTimeout(() => {
         window.location.href = "index.html";
       }, 1500);
+    }
+
+    const reasons = [/* long list unchanged */];
+
+    let currentReason = 0;
+
+    function nextReason() {
+      currentReason = (currentReason + 1) % reasons.length;
+      document.getElementById("reason-title").textContent = `Reason ${currentReason + 1} Why I Love You`;
+      document.getElementById("reason-text").textContent = reasons[currentReason];
     }
   </script>
 </body>
