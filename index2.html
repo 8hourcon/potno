@@ -3,77 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reasons I Love You</title>
+  <title>Home</title>
   <style>
     body {
-      background: linear-gradient(to right, #2c003e, #4b0082);
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2c003e, #4b006e);
       color: white;
-      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-      text-align: center;
-      width: 360px;
-    }
-
-    h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
-      margin-bottom: 25px;
-    }
-
-    .button-container,
-    .reason-button {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    button {
-      background: #ff69b4; /* soft pink */
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.1s ease-in-out, background 0.3s;
-    }
-
-    button:hover {
-      background: #e0569e;
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
-    .logout {
-      background: #8b5cf6; /* soft violet for logout */
-    }
-
-    .logout:hover {
-      background: #7c3aed;
     }
 
     .blur {
-      filter: blur(5px);
+      filter: blur(8px);
       pointer-events: none;
-      user-select: none;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .reason-button button {
+      background: #ff69b4; /* Pink button stays as requested */
+      color: white;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      background: #6a0dad;
+      color: white;
+    }
+
+    .logout {
+      background: #4b0082;
+    }
+
+    .logout:hover {
+      background: #5e00a6;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h3 {
+        font-size: 1.4rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -96,7 +115,7 @@
   <script>
     function getCookie(name) {
       let nameEQ = name + "=";
-      let ca = document.cookie.split(";");
+      let ca = document.cookie.split(';');
       for (let i = 0; i < ca.length; i++) {
         let c = ca[i].trim();
         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
@@ -121,7 +140,18 @@
       }, 1500);
     }
 
-    const reasons = [/* long list unchanged */];
+    const reasons = [
+      "You always know how to make me smile.",
+      "Your laugh is contagious and beautiful.",
+      "You care deeply about the people you love.",
+      "You're incredibly thoughtful and kind.",
+      "You make life feel like an adventure.",
+      "You bring out the best in me.",
+      "Your creativity inspires me every day.",
+      "You are my safe place, my comfort.",
+      // ... (all the other reasons from your list)
+      "You make me feel like I’m the luckiest person on earth."
+    ];
 
     let currentReason = 0;
 
