@@ -1,135 +1,88 @@
+<!-- index2.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #6a1b9a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome Back</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #2c003e, #4b0082);
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-        .container {
-            text-align: center;
-            background-color: #4e148c;
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      text-align: center;
+      width: 320px;
+    }
 
-        h3, p {
-            color: white;
-        }
+    h1 {
+      margin-bottom: 20px;
+    }
 
-        .reason-button button {
-            background-color: #e91e63;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    p {
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
 
-        .reason-button button:hover {
-            background-color: #c2185b;
-        }
+    button {
+      background: #ff69b4; /* hot pink */
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: transform 0.1s ease-in-out, background 0.3s;
+    }
 
-        .button-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
+    button:hover {
+      background: #e0569e;
+    }
 
-        .button-container button {
-            background-color: #7b1fa2;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .button-container button:hover {
-            background-color: #9c27b0;
-        }
-    </style>
+    button:active {
+      transform: scale(0.96);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="reason-container">
-            <h3 id="reason-title">Reason 1 Why I Love You</h3>
-            <p id="reason-text">You always know how to make me smile.</p>
-            <div class="reason-button">
-                <button onclick="nextReason()">Next Reason</button>
-            </div>
-        </div>
+  <div class="container">
+    <h1>Welcome Back, Lea</h1>
+    <p>You're doing amazing. Keep going, you're almost there.</p>
+    <button onclick="nextPage()">Next</button>
+  </div>
 
-        <div class="button-container">
-            <button onclick="enterSite()">Enter</button>
-            <button class="logout" onclick="logout()">Logout</button>
-        </div>
-    </div>
+  <script>
+    function getCookie(name) {
+      let nameEQ = name + "=";
+      let ca = document.cookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+      }
+      return null;
+    }
 
-    <script>
-        function getCookie(name) {
-            let nameEQ = name + "=";
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i].trim();
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
-            }
-            return null;
-        }
+    function nextPage() {
+      window.location.href = "index3.html";
+    }
 
-        function logout() {
-            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.href = "index.html";
-        }
-
-        function enterSite() {
-            window.location.href = "index3.html";
-        }
-
-        if (getCookie("loggedIn") === "true") {
-            document.body.classList.remove("blur");
-        } else {
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        }
-
-        const reasons = [
-            "You always know how to make me smile.",
-            "Your laugh is contagious and beautiful.",
-            "You care deeply about the people you love.",
-            "You're incredibly thoughtful and kind.",
-            "You make life feel like an adventure.",
-            "You bring out the best in me.",
-            "Your creativity inspires me every day.",
-            "You are my safe place, my comfort.",
-            "You know exactly what to say to make me feel better.",
-            "Your heart is as big as your dreams."
-        ];
-
-        let currentReason = 0;
-
-        function nextReason() {
-            currentReason = (currentReason + 1) % reasons.length;
-            document.getElementById("reason-title").textContent = `Reason ${currentReason + 1} Why I Love You`;
-            document.getElementById("reason-text").textContent = reasons[currentReason];
-        }
-    </script>
+    if (getCookie("loggedIn") !== "true") {
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1500);
+    }
+  </script>
 </body>
 </html>
