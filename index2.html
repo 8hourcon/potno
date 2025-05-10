@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Relax Lea Everything Is Okay</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,28 +21,10 @@
             max-width: 400px;
         }
 
-        .reason-container {
-            margin-bottom: 30px;
-        }
-
-        .reason-button button {
-            background-color: #9c27b0;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .reason-button button:hover {
-            background-color: #7b1fa2;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+        .poem {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #4e2a84;
         }
 
         .button-container button {
@@ -62,19 +44,20 @@
 </head>
 <body>
     <div class="container">
-        <div class="reason-container">
-            <h3 id="reason-title">Reason 1 Why I Love You</h3>
-            <p id="reason-text">You always know how to make me smile.</p>
-            <div class="reason-button">
-                <button onclick="nextReason()">Next Reason</button>
-            </div>
+        <h1>Welllll</h1>
+        <div class="poem" id="poem">
+            This part isn't really done.
+            Best for last!
         </div>
-
         <div class="button-container">
-            <button onclick="enterSite()">Enter</button>
-            <button class="logout" onclick="logout()">Logout</button>
+            <button onclick="goBack()">Go Back</button>
         </div>
     </div>
+
+    <audio id="background-music" loop>
+        <source src="Fade.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         function getCookie(name) {
@@ -87,42 +70,22 @@
             return null;
         }
 
-        function logout() {
-            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.href = "index.html";
+        function goBack() {
+            window.location.href = "index2.html";
         }
 
-        function enterSite() {
-            window.location.href = "index3.html";
-        }
-
-        if (getCookie("loggedIn") === "true") {
-            document.body.classList.remove("blur");
-        } else {
+        if (getCookie("loggedIn") !== "true") {
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 1500);
         }
 
-        const reasons = [
-            "You always know how to make me smile.",
-            "Your laugh is contagious and beautiful.",
-            "You care deeply about the people you love.",
-            "You're incredibly thoughtful and kind.",
-            "You make life feel like an adventure.",
-            "You bring out the best in me.",
-            "Your creativity inspires me every day.",
-            "You are my safe place, my comfort.",
-            "You know exactly what to say to make me feel better.",
-            "Your heart is as big as your dreams."
-        ];
-
-        let currentReason = 0;
-
-        function nextReason() {
-            currentReason = (currentReason + 1) % reasons.length;
-            document.getElementById("reason-title").textContent = `Reason ${currentReason + 1} Why I Love You`;
-            document.getElementById("reason-text").textContent = reasons[currentReason];
+        let audio = document.getElementById("background-music");
+        document.body.addEventListener("click", function() {
+            audio.play();
+        });
+        if (audio) {
+            audio.muted = false;
         }
     </script>
 </body>
