@@ -1,92 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relax Lea Everything Is Okay</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #6a1b9a, #8e24aa, #4a148c);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .container {
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        .poem {
-            font-size: 18px;
-            margin: 20px 0;
-            color: #4e2a84;
-        }
+    .login-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      text-align: center;
+      color: white;
+    }
 
-        .button-container button {
-            background-color: #9c27b0;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .login-container h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 28px;
+    }
 
-        .button-container button:hover {
-            background-color: #7b1fa2;
-        }
-    </style>
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      transition: background 0.3s;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    input:focus {
+      background: rgba(255,255,255,0.2);
+      border-color: #ffffff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      background: linear-gradient(135deg, #ce93d8, #ab47bc);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #ba68c8, #9c27b0);
+      transform: scale(1.03);
+    }
+
+    .error-text {
+      margin-top: 12px;
+      color: #ffb3b3;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welllll</h1>
-        <div class="poem" id="poem">
-            This part isn't really done.
-            Best for last!
-        </div>
-        <div class="button-container">
-            <button onclick="goBack()">Go Back</button>
-        </div>
-    </div>
+  <div class="login-container">
+    <h2>Welcome Back</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p id="error" class="error-text"></p>
+  </div>
 
-    <audio id="background-music" loop>
-        <source src="Fade.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+  <script>
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
 
-    <script>
-        function getCookie(name) {
-            let nameEQ = name + "=";
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i].trim();
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
-            }
-            return null;
-        }
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+      }
+      return null;
+    }
 
-        function goBack() {
-            window.location.href = "index2.html";
-        }
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
 
-        if (getCookie("loggedIn") !== "true") {
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        }
+      if (user === "Lea" && pass === "omar") {
+        setCookie("loggedIn", "true", 1);
+        window.location.href = "index2.html";
+      } else {
+        document.getElementById("error").innerText = "Invalid username or password.";
+      }
+    }
 
-        let audio = document.getElementById("background-music");
-        document.body.addEventListener("click", function() {
-            audio.play();
-        });
-        if (audio) {
-            audio.muted = false;
-        }
-    </script>
+    if (getCookie("loggedIn") === "true") {
+      window.location.href = "index2.html";
+    }
+  </script>
 </body>
 </html>
