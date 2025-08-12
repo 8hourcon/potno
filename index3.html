@@ -1,91 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Welcome</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #6a2c8b, #9b42b8);
-            color: white;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome</title>
+  <style>
+    /* Reset and base styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow: hidden; /* Hide scroll while overlay is visible */
+      background: linear-gradient(135deg, #6a2c8b, #9b42b8);
+      color: white;
+    }
 
-        .container {
-            background: rgba(60, 0, 90, 0.6);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-        }
+    /* Overlay “wall” */
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #6a2c8b, #9b42b8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
 
-        h1 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-        }
+    #overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-        p {
-            font-size: 1.3em;
-            line-height: 1.5;
-        }
+    #revealBtn {
+      background-color: #9b42b8;
+      border: none;
+      padding: 20px 60px;
+      border-radius: 15px;
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(155, 66, 184, 0.7);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-        .button {
-            margin-top: 30px;
-        }
+    #revealBtn:hover {
+      background-color: #742094;
+      transform: scale(1.05);
+    }
 
-        button {
-            background-color: #9b42b8;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    /* Main container hidden initially */
+    .container {
+      background: rgba(60, 0, 90, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      margin: auto;
+      max-height: 70vh;
+      overflow-y: auto;
+      color: white;
+      display: none; /* hidden until reveal */
+      position: relative;
+      top: 50px;
+    }
 
-        button:hover {
-            background-color: #742094;
-        }
-    </style>
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.3em;
+      line-height: 1.5;
+    }
+
+    .button {
+      margin-top: 30px;
+    }
+
+    button.backBtn {
+      background-color: #9b42b8;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.backBtn:hover {
+      background-color: #742094;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>yea</h1>
-        <p>I finally finished it..</p>
-        <div class="button">
-            <button onclick="goBack()">Back</button>
-        </div>
+
+  <!-- Overlay with Reveal Button -->
+  <div id="overlay">
+    <button id="revealBtn">Reveal</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" id="mainContent">
+    <h1>yea</h1>
+    <p>I finally finished it..</p>
+    <div class="button">
+      <button class="backBtn" onclick="goBack()">Back</button>
     </div>
+  </div>
 
-    <!-- Background audio, autoplay and hidden -->
-    <audio id="bgAudio" src="Language.mp3" autoplay loop></audio>
+  <!-- Background audio, no controls -->
+  <audio id="bgAudio" src="language.mp3" loop></audio>
 
-    <script>
-        function goBack() {
-            window.location.href = "index2.html";
-        }
+  <script>
+    const overlay = document.getElementById('overlay');
+    const revealBtn = document.getElementById('revealBtn');
+    const mainContent = document.getElementById('mainContent');
+    const audio = document.getElementById('bgAudio');
 
-        // Optional: try to play audio on page load (some browsers require user interaction)
-        window.addEventListener('load', () => {
-            const audio = document.getElementById('bgAudio');
-            audio.play().catch(() => {
-                // Autoplay might be blocked; user interaction needed to start audio
-                console.log('Autoplay prevented. User interaction required to play audio.');
-            });
-        });
-    </script>
+    revealBtn.addEventListener('click', () => {
+      // Play audio, ignoring autoplay block because user interacted
+      audio.play().catch(() => {
+        console.log('Audio play was prevented.');
+      });
+
+      // Show main content
+      mainContent.style.display = 'block';
+
+      // Fade out and hide overlay
+      overlay.classList.add('hidden');
+
+      // Allow scrolling again
+      document.body.style.overflow = 'auto';
+    });
+
+    function goBack() {
+      window.location.href = "index2.html";
+    }
+  </script>
+
 </body>
 </html>
-
