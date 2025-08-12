@@ -28,6 +28,8 @@
             max-width: 500px;
             width: 90%;
             text-align: center;
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
         h1 {
@@ -35,9 +37,29 @@
             margin-bottom: 10px;
         }
 
-        p {
-            font-size: 1.3em;
-            line-height: 1.5;
+        #lyrics {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: left;
+            margin-top: 20px;
+            color: white;
+        }
+
+        #lyrics p {
+            margin: 6px 0;
+            transition: color 0.3s ease;
+        }
+
+        #lyrics p.active {
+            color: #ff4081; /* pinkish highlight */
+            font-weight: bold;
+        }
+
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            outline: none;
+            border-radius: 10px;
         }
 
         .button {
@@ -63,7 +85,51 @@
 <body>
     <div class="container">
         <h1>Welcome, my love 💜</h1>
-        <p>Not Finished :)</p>
+        
+        <audio id="audio" controls>
+            <source src="your-song.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
+
+        <div id="lyrics">
+            <p data-start="0">You said we don't even make love no more</p>
+            <p data-start="6">I'm not sure, but you know that's not right</p>
+            <p data-start="11">Why you sweating baby?</p>
+            <p data-start="14">Ohhh</p>
+            <p data-start="16">Because I can't give you my life</p>
+            <p data-start="20">It's your fault for loving me</p>
+            <p data-start="23">You put your trust in me</p>
+            <p data-start="26">I didn't ask</p>
+            <p data-start="28">I didn't ask</p>
+            <p data-start="30">I ain't sign up for nothing like that</p>
+            <p data-start="34">I'm just doing me, I was coming right back</p>
+            <p data-start="39">Why you left me lone?</p>
+            <p data-start="42">And she know I was coming home</p>
+            <p data-start="45">And she know I been out here working 9-5 lately</p>
+            <p data-start="50">And, baby gets on my fucking nerves about the same shit</p>
+            <p data-start="55">We don't speak the same language</p>
+            <p data-start="58">We don't speak the same language</p>
+            <p data-start="61">We don't speak the same language</p>
+            <p data-start="65">You want me to call your phone and tell you I'm done</p>
+            <p data-start="70">That there ain't no us no more</p>
+            <p data-start="73">No</p>
+            <p data-start="75">Girl ain't nobody ever gone do you like me</p>
+            <p data-start="79">Learn how to stand on your own two feet alone</p>
+            <p data-start="84">It's your fault for loving me</p>
+            <p data-start="87">You put your trust in me</p>
+            <p data-start="90">I didn't ask</p>
+            <p data-start="92">I didn't ask</p>
+            <p data-start="94">I ain't sign up for nothing like that</p>
+            <p data-start="98">You gone treat me cold, Imma diss you right back</p>
+            <p data-start="102">Why you left me lone?</p>
+            <p data-start="105">And she know I was coming home</p>
+            <p data-start="108">And she know I been out here working 9-5 lately</p>
+            <p data-start="113">And, baby gets on my fucking nerves about the same shit</p>
+            <p data-start="118">We don't speak the same language</p>
+            <p data-start="121">We don't speak the same language</p>
+            <p data-start="124">We don't speak the same language</p>
+        </div>
+
         <div class="button">
             <button onclick="goBack()">Back</button>
         </div>
@@ -73,6 +139,34 @@
         function goBack() {
             window.location.href = "index2.html";
         }
+
+        const audio = document.getElementById('audio');
+        const lyrics = document.querySelectorAll('#lyrics p');
+
+        audio.ontimeupdate = () => {
+            const currentTime = audio.currentTime;
+
+            let activeIndex = -1;
+            for (let i = 0; i < lyrics.length; i++) {
+                const start = parseFloat(lyrics[i].dataset.start);
+                const nextStart = i < lyrics.length -1 ? parseFloat(lyrics[i+1].dataset.start) : Infinity;
+
+                if (currentTime >= start && currentTime < nextStart) {
+                    activeIndex = i;
+                    break;
+                }
+            }
+
+            lyrics.forEach((line, i) => {
+                if (i === activeIndex) {
+                    line.classList.add('active');
+                    // Scroll the container to keep active line visible
+                    line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        };
     </script>
 </body>
 </html>
