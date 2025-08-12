@@ -69,10 +69,22 @@
         </div>
     </div>
 
+    <!-- Background audio, autoplay and hidden -->
+    <audio id="bgAudio" src="language.mp3" autoplay loop></audio>
+
     <script>
         function goBack() {
             window.location.href = "index2.html";
         }
+
+        // Optional: try to play audio on page load (some browsers require user interaction)
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('bgAudio');
+            audio.play().catch(() => {
+                // Autoplay might be blocked; user interaction needed to start audio
+                console.log('Autoplay prevented. User interaction required to play audio.');
+            });
+        });
     </script>
 </body>
 </html>
